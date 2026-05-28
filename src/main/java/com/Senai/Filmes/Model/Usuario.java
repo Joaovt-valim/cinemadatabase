@@ -14,7 +14,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
 
 public class Usuario {
 
@@ -37,6 +37,6 @@ public class Usuario {
     private Cargo cargo;
 
     @CreationTimestamp
-    private LocalDateTime criadoEM;
+    private LocalDateTime criadoEm;
 
 }
