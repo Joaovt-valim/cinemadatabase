@@ -43,7 +43,7 @@ public class Reserva {
 
     @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservaAssento> assentos = new ArrayList<>();
-2
+
 
 }
 
