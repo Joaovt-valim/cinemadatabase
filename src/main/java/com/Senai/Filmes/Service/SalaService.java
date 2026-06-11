@@ -44,6 +44,8 @@ public class SalaService {
         }
         return assentos;
     }
+
+
     public List<SalaResponse> listarTodas(){
         return salaRepository.findAll().stream().map(this::toResponse).toList();
     }
@@ -56,7 +58,7 @@ public class SalaService {
     public SalaResponse atualizarSala(UUID id,SalaRequest salaRequest){
         Sala sala = salaRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Nenhuma sala encontrada!"));
         sala.setNome(salaRequest.nomeSala());
-        sala.setTotalAssentos(salaRequest.totalAssentos());
+
         return toResponse(salaRepository.save(sala));
     }
 
@@ -67,6 +69,19 @@ public class SalaService {
                 sala.getId(),
                 sala.getNome(),
                 sala.getTotalAssentos()
-        );
+        );}
+
+    public void apagarSala(UUID id) {
+            Sala sala = salaRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Sala não encontrado"));
+
+            salaRepository.delete(sala);
     }
-}
+
+    public List<SalaResponse> listarTodassalas() {
+        return salaRepository.findAll().stream().map(this::toResponse).toList();
+
+    }
+
+    }
+

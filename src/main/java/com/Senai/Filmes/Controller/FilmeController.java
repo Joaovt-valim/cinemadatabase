@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,23 +32,27 @@ public class FilmeController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Buscaf filmes por ID", description = "Retorna os detalhes de um unico filme")
     public ResponseEntity<FilmeResponse> buscarPorFilmeId(@PathVariable UUID id){
         return new ResponseEntity<>(filmeService.buscarPorFilmeId(id), HttpStatus.OK);
     }
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Criar filmes ", description = "Cadastra um novo filme")
     public ResponseEntity<FilmeResponse> criarFilme(@RequestBody FilmeRequest filmerequest){
         return new ResponseEntity<>(filmeService.cadastrarFilme(filmerequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Atualizar filme", description = "Atualiza os dados de um filme")
     public ResponseEntity<FilmeResponse> atualizae(@PathVariable UUID id, @RequestBody FilmeRequest filmerequest){
         return new ResponseEntity<>(filmeService.atualizarFilme(id, filmerequest), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Deletar filme", description = "Deleta um filme")
     public ResponseEntity<FilmeResponse> deletar(@PathVariable UUID id){
         filmeService.deletar(id);
